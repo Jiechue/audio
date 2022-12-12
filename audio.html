@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="css/audio.css" type="text/css">
+	</head>
+	<body>
+		<!-- 播放器 -->
+		<div class="audio-container">
+			<div>
+				<audio preload="auto" src="./voice/153149-movers-sample-listening-test-vol2.mp3"></audio>
+			</div>
+			<div class="audio-playbox">
+				<div class="audio-play"><i></i></div><!--播放/暂停按钮-->
+				<div class="audio-pause"><i></i></div>
+				<div class="audio-time">
+					<span class="ctime"></span>
+					<span class="apart">/</span>
+					<span class="dtime"></span>
+				</div><!--时间/时长-->
+				<!-- 外部容器 -->
+				<div class="progress-wrappers">
+				    <!-- 包裹进度条 -->
+				    <div class="progress-wrapper">
+				        <!-- 进度条 -->
+				        <div class="progress">
+				            <!-- 进度条右边圆角 -->
+							<div class="progress-bar"></div>
+				        </div>
+				    </div>
+				</div>
+				<div class="sound">
+					<div class="volume-wrappers">
+						<div class="volume-wrapper">
+						    <!-- 进度条 -->
+						    <div class="volume">
+						        <!-- 进度条右边圆角 -->
+								<div class="volume-bar"></div>
+						    </div>
+						</div>
+					</div>
+					<div class="mute"><i></i></div><!--静音按钮-->
+				</div>
+				<div class="speed" title="播放倍速">
+					<i></i>
+					<ul>
+						<li>0.25</li>
+						<li>0.5</li>
+						<li>0.75</li>
+						<li>1.0</li>
+						<li>1.25</li>
+						<li>1.5</li>
+						<li>1.75</li>
+						<li>2.0</li>
+					</ul>
+				</div>
+			</div><!--播放器end-->
+		</div>
+	</body>
+	<script src="js/jquery.js"></script>
+	<script src="js/audio.js"></script>
+</html>

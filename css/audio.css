@@ -1,0 +1,306 @@
+:root{
+	/* 图标颜色 */
+	--audio-baseIconColor: #0b0b0b; 
+	/* 背景颜色 */
+	--audio-baseBackgroundColor: #f0f3f4;
+	/* 音量表颜色 */
+	--audio-volumeColor: #e5e7e8;
+} 
+/*播放器*/
+.audio-container{
+	margin: 0;
+	padding: 0;
+}
+.audio-container .audio-playbox{
+	display: flex;
+	justify-content: space-between;
+	background-color: var(--audio-baseBackgroundColor);
+	/* width: 100%; */
+	border-radius: 15px;
+	padding: 15px;
+	margin: 15px 0;
+	max-width: 400px;
+	min-width: 120px;
+}
+/*各控件容器*/
+.audio-container .audio-play, .audio-pause, .mute, .speed{ /* 播放/暂停、停止、静音、倍速 */
+	width: 25px;
+	height: 25px;
+	line-height: 25px;
+	/* order: solid 1px #999999; */  /*调试时使用*/
+	color: var(--audio-baseIconColor);  /*控件颜色*/
+	position: relative;
+}
+/*鼠标悬停变色*/
+.audio-container .audio-play:hover, .audio-pause:hover, .mute:hover, .speed i:hover{
+	color: darkgoldenrod;
+}
+/*播放/暂停按钮
+*/
+/* 播放按钮：由一个三角形组成 */
+.audio-container .audio-play i{
+	display: block;
+	width: 0;
+	height: 0;
+	border-left: solid 12px currentcolor;
+	border-top: solid 8px transparent;
+	border-bottom: solid 8px transparent;
+	position: absolute; /*相对于容器的位置*/
+	left: 8px;
+	top: 5px;
+}
+/* 暂停按钮：由两条竖线形组成 */
+.audio-container .audio-pause{
+	display: none;
+}
+.audio-container .audio-pause i{
+	display: flex;
+	position: absolute;
+	left: 9px;
+	top: 6px;
+}
+.audio-container .audio-pause i::before, .audio-pause i::after{ /*竖线*/
+	content: "";
+	display: block;
+	width: 3px;
+	height: 13px;
+	background-color: currentcolor;
+	border-radius: 1px;
+}
+.audio-container .audio-pause i::after{ /*竖线2*/
+	margin-left: 3px;
+}
+/*时间/时长*/
+.audio-container .audio-time{
+	width: 87px;
+	margin-top: 3px;
+	font-size: 14px;
+}
+
+/*进度条
+  由两条横线组成
+*/
+/* 设置外部容器 */
+.audio-container .progress-wrappers{
+	/* margin-top: 10px; */
+    height:25px;
+	/* background-color: black; */
+}
+/* 设置进度条容器 */
+.audio-container .progress-wrapper{
+	margin-top: 10px;
+    width:150px;
+    height:6px;
+    margin-bottom:0;
+    line-height:6px;
+    position:relative;
+    background-color: #545555;
+}
+
+/* 设置进度条显示颜色 */
+.audio-container .progress{
+    width:0;
+    height:100%;
+	/* overflow: hidden; */
+	/* transition: 0.25s; */
+    background-color: var(--audio-baseIconColor);
+}
+/* 设置进度条右侧圆点 */
+.audio-container .progress-bar{
+    width:10px;
+    height:10px;
+    position:absolute;
+    bottom:-2px;
+    border-radius: 50%;
+    background-color: var(--audio-baseIconColor);
+}
+/*静音按钮
+  由一个方块和一个三角形组成
+  用法：<div class="mute"><i></i></div>
+  当处于静音状态时，class="mute muted"，里面的<i>标签显示为×
+*/
+.audio-container .sound{
+	background-color: var(--audio-baseBackgroundColor);
+	border-radius: 0 10px 10px 0/ 0 10px 10px 0;
+	/* border-right: 40px; */
+	transition: 0.3s;
+	position: relative;
+}
+.audio-container .mute::before{ /*三角形*/
+	content: "";
+	display: block;
+	width: 0;
+	height: 0;
+	border-right: solid 10px currentcolor;
+	border-top: solid 8px transparent;
+	border-bottom: solid 8px transparent;
+	position: absolute;
+	top: 4px;
+	left: 7px;
+}
+.audio-container .mute::after{ /*方块*/
+	content: "";
+	display: block;
+	width: 6px;
+	height: 7px;
+	background-color: currentcolor;
+	position: absolute;
+	top: 9px;
+	left: 7px;
+}
+.audio-container .muted i::before, .muted i::after{ /*叉*/
+	content: "";
+	display: block;
+	width: 9px;
+	height: 2px;
+	background-color: red;
+	position: absolute;
+	top: 11px;
+	left: 15px;
+	z-index: 10;
+}
+.audio-container .muted i::before{
+	transform: rotate(45deg);
+}
+.audio-container .muted i::after{
+	transform: rotate(-45deg);
+}
+/*音量条
+*/
+/* 设置进度条容器 */
+.audio-container .volume-wrappers{
+	width: 0px;
+	height: 25px;
+	position: absolute;
+	display: block;
+	right: 20px;
+	top: 0px;
+	overflow: hidden;
+	transition: 0.3s;
+	border-radius: 10px 0 0 10px/ 10px 0 0 10px;
+	
+	background-color: var(--audio-volumeColor);
+}
+.audio-container .volume-wrapper{
+	margin-left: 8px;
+	margin-top: 10px;
+    width:60px;
+    height:6px;
+    margin-bottom:0;
+    line-height:6px;
+    position:relative;
+    background-color: #545555;
+}
+
+/* 设置进度条显示颜色 */
+.audio-container .volume{
+    width:60px;
+    height:100%;
+	/* overflow: hidden; */
+	/* transition: 0.05s; */
+    background-color: var(--audio-baseIconColor);
+}
+/* 设置进度条右侧圆点 */
+.audio-container .volume-bar{
+    width:10px;
+    height:10px;
+    position:absolute;
+    bottom:-2px;
+    border-radius: 50%;
+	left: 60px;
+    background-color: var(--audio-baseIconColor);
+}
+/* 播放倍速按钮 
+*/
+.audio-container .speed i{ /*圆环*/
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	border: solid 2px currentColor;
+	border-right-color: transparent;
+	border-left-color: transparent;
+	position: absolute;
+	top: 6px;
+	left: 6px;
+}
+.audio-container .speed i::before,.loop i::after{ /*方向箭头*/
+	content: "";
+	display: block;
+	width: 0;
+	height: 0;
+	border: solid 5px currentColor;
+	border-right-color: transparent;
+	border-bottom-color: transparent;
+	border-left-color: transparent;
+	position: absolute;
+}
+.audio-container .speed i::before{
+	transform: rotate(-45deg);
+	right: -7px;
+	top: 0;
+}
+.audio-container .speed i::after{
+	transform: rotate(135deg);
+	left: -7px;
+	bottom: 0;
+}
+.audio-container .speed i:hover ul{
+	height: 256px;
+}
+/* 播放倍速列表 */
+.audio-container .speed ul{
+	list-style: none;
+	width: 150px;
+	height: 0px;
+	text-align: center;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	top: 6px;
+	left: -115px;
+	background: #fefefe;
+	/* overflow: hidden; */
+    overflow-y: scroll;
+	transition: 0.3s;
+	z-index: 100;
+}
+.audio-container .speed ul li{
+	list-style: none;
+	cursor: pointer;
+	width: 100%;
+	line-height: 36px;
+	color: black;
+	background-color: var(--audio-baseBackgroundColor);
+}
+.audio-container .speed ul li:hover{
+	background: #e2e2e2;
+}
+@media screen and (max-width: 372px) {
+	.audio-container .progress-wrapper {
+		width: 75px;
+	}
+}
+@media screen and (max-width: 296px) {
+	.audio-container .progress-wrapper {
+		width: 40px;
+	}
+}
+@media screen and (max-width: 262px) {
+	.audio-container .progress-wrapper{
+		width: 20px;
+	}
+	.audio-container .audio-time{
+		width: 37px;
+	}
+	.audio-container .audio-time .apart{
+		display: none;
+	}
+	.audio-container .audio-time .dtime{
+		display: none;
+	}
+}
+@media screen and (max-width: 186px){
+	.audio-container .speed{
+		display: none;
+	}
+}
